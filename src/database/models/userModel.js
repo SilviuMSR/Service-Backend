@@ -5,7 +5,8 @@ const userSchema = new Schema({
     username: String,
     password: String,
     deleted: Boolean,
-    status: String // Disponibil or On Vacantion
+    position: String,
+    userStatus: String // Disponibil or On Vacantion
 })
 
 module.exports = mongoose.model('users', userSchema)

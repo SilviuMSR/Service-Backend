@@ -29,17 +29,14 @@ app.response.__proto__.err = function (data) {
 mongoose.connect(mongo.URL, { useNewUrlParser: true })
     .then(() => {
         app.use(cors({
-            origin:'http://localhost:3000',
+            origin: 'http://localhost:3000',
             credentials: true
         }));
 
         app.use(bodyParser.urlencoded({ extended: true, useUnifiedTopology: true }));
         app.use(bodyParser.json());
-        app.use(session({
-            secret: 'MY SECRET KEY',
-            resave: true,
-            saveUninitialized: false
-        }));
+
+        app.use('/users', require('./src/api/users/users'));
 
         app.use(notFound);
         app.use(errorHandler);

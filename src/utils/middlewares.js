@@ -7,7 +7,7 @@ module.exports = {
         next(err);
     },
     errorHandler: (err, req, res, next) => {
-        console.log(err, 'ERROR');
+        console.log('Error is', err);
         res.status(err.status || statusCodes.BAD_REQUEST);
         res.json({ error: err });
     }
