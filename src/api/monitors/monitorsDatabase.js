@@ -8,7 +8,7 @@ module.exports = {
             query.name = new RegExp(options.search.name, 'i');
         }
 
-        return MonitorModel.find({ ...query })
+        return MonitorModel.find({ ...query, deleted: false })
             .skip(options.from)
             .limit(options.limit)
             .lean()
@@ -21,10 +21,10 @@ module.exports = {
             query.name = new RegExp(options.search.name, 'i');
         }
 
-        return MonitorModel.count({ ...query });
+        return MonitorModel.count({ ...query, deleted: false });
     },
     getById: id => MonitorModel.findById(id),
     create: monitor => MonitorModel.create(monitor),
     update: (id, newMonitor) => MonitorModel.findByIdAndUpdate(id, newMonitor),
-    delete: id => MonitorModel.findByIdAndDelete(id)
+    delete: id => MonitorModel.findByIdAndUpdate(id, { deleted: true })
 }

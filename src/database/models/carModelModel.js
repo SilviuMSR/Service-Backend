@@ -7,6 +7,10 @@ const carBrandModelSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'carBrands',
         required: true
+    },
+    deleted: {
+        type: Boolean,
+        default: false
     }
 })
 

@@ -8,7 +8,7 @@ module.exports = {
             query.name = new RegExp(options.search.name, 'i');
         }
 
-        return CarProblemModel.find({ ...query })
+        return CarProblemModel.find({ ...query, deleted: false })
             .skip(options.from)
             .limit(options.limit)
             .lean()
@@ -21,10 +21,10 @@ module.exports = {
             query.name = new RegExp(options.search.name, 'i');
         }
 
-        return CarProblemModel.count({ ...query });
+        return CarProblemModel.count({ ...query, deleted: false });
     },
     getById: id => CarProblemModel.findById(id),
     create: problem => CarProblemModel.create(problem),
     update: (id, newProblem) => CarProblemModel.findByIdAndUpdate(id, newProblem),
-    delete: id => CarProblemModel.findByIdAndDelete(id)
+    delete: id => CarProblemModel.findByIdAndUpdate(id, { deleted: true })
 }

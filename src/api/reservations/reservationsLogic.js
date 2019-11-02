@@ -5,10 +5,12 @@ module.exports = {
         return Promise.all([
             database.get(options),
             database.count(options)
-        ]).then(promiseArray => Promise.resolve({
-            reservations: promiseArray[0],
-            count: promiseArray[1]
-        }))
+        ]).then(promiseArray => {
+            return Promise.resolve({
+                reservations: promiseArray[0],
+                count: promiseArray[1]
+            })
+        })
     },
     getById: id => database.getById(id),
     create: reservation => database.create(reservation),

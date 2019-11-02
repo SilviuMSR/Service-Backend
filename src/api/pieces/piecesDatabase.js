@@ -8,7 +8,7 @@ module.exports = {
             query.name = new RegExp(options.search.name, 'i');
         }
 
-        return PieceModel.find({ ...query })
+        return PieceModel.find({ ...query, deleted: false })
             .skip(options.from)
             .limit(options.limit)
             .lean()
@@ -21,10 +21,10 @@ module.exports = {
             query.name = new RegExp(options.search.name, 'i');
         }
 
-        return PieceModel.count({ ...query });
+        return PieceModel.count({ ...query, deleted: false });
     },
     getById: id => PieceModel.findById(id),
     create: piece => PieceModel.create(piece),
     update: (id, newPiece) => PieceModel.findByIdAndUpdate(id, newPiece),
-    delete: id => PieceModel.findByIdAndDelete(id)
+    delete: id => PieceModel.findByIdAndUpdate(id, { deleted: true })
 }

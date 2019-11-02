@@ -1,16 +1,18 @@
 const mongoose = require('mongoose')
 const { Schema } = require('mongoose')
 
-const monitorSchema = new Schema({
+const fileSchema = new Schema({
     reservationId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'reservations',
         required: true
     },
+    originalName: String,
+    path: String,
     deleted: {
         type: Boolean,
         default: false
     }
 })
 
-module.exports = mongoose.model('monitors', monitorSchema)
+module.exports = mongoose.model('files', fileSchema)

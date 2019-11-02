@@ -6,7 +6,11 @@ const userSchema = new Schema({
     password: String,
     deleted: Boolean,
     position: String,
-    userStatus: String // Disponibil or On Vacantion
+    userStatus: String, // Disponibil or On Vacantion
+    deleted: {
+        type: Boolean,
+        default: false
+    }
 })
 
 module.exports = mongoose.model('users', userSchema)

@@ -14,7 +14,9 @@ const reservationSchema = new Schema({
     },
     clientName: String,
     clientEmail: String,
-    status: String, // Accepted / Declined / In progress / Done
+    status: String, // Accepted / Declined / In progress / Done,
+    createdAt: Date,
+    file: [{ type: mongoose.Schema.Types.ObjectId, ref: 'files' }]
 })
 
 module.exports = mongoose.model('reservations', reservationSchema)

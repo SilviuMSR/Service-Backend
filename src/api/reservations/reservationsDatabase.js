@@ -11,6 +11,7 @@ module.exports = {
         return ReservationModel.find({ ...query })
             .skip(options.from)
             .limit(options.limit)
+            .populate('file')
             .lean()
             .exec();
     },
@@ -23,7 +24,7 @@ module.exports = {
 
         return ReservationModel.count({ ...query });
     },
-    getById: id => ReservationModel.findById(id),
+    getById: id => ReservationModel.findById(id).populate('file').lean().exec(),
     create: reservation => ReservationModel.create(reservation),
     update: (id, newReservation) => ReservationModel.findByIdAndUpdate(id, newReservation),
     delete: id => ReservationModel.findByIdAndDelete(id)

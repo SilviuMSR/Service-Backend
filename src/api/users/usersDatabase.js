@@ -8,7 +8,7 @@ module.exports = {
             query.username = new RegExp(options.search.name, 'i');
         }
 
-        return UserModel.find({ ...query })
+        return UserModel.find({ ...query, deleted: false })
             .skip(options.from)
             .limit(options.limit)
             .lean()
@@ -21,10 +21,10 @@ module.exports = {
             query.username = new RegExp(options.search.name, 'i');
         }
 
-        return UserModel.count({ ...query });
+        return UserModel.count({ ...query, delete: false });
     },
     getById: id => UserModel.findById(id),
     create: user => UserModel.create(user),
     update: (id, newUser) => UserModel.findByIdAndUpdate(id, newUser),
-    delete: id => UserModel.findByIdAndDelete(id)
+    delete: id => UserModel.findByIdAndUpdate(id, { deleted: true })
 }
