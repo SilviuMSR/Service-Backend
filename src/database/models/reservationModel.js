@@ -16,6 +16,8 @@ const reservationSchema = new Schema({
     clientEmail: String,
     status: String, // Accepted / Declined / In progress / Done,
     createdAt: Date,
+    price: Number,
+    problem: [{ type: mongoose.Schema.Types.ObjectId, ref: 'carProblems' }],
     file: [{ type: mongoose.Schema.Types.ObjectId, ref: 'files' }]
 })
 

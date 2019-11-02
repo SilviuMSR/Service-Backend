@@ -32,7 +32,7 @@ router.route('/')
         }
     }), res))
 
-    .post((req, res) => apiSerializer(reservationLogic.create(req.body.reservation), res))
+    .post((req, res) => apiSerializer(reservationFacade.create(req.body.reservation), res))
 
 router.route('/:ID')
     .get((req, res) => apiSerializer(reservationLogic.getById(req.params.ID), res))
@@ -41,5 +41,9 @@ router.route('/:ID')
 
 router.route('/:ID/files')
     .put(upload.any(), (req, res) => apiSerializer(reservationFacade.uploadFiles(req.params.ID, req.files), res))
+
+/* Generate invoice*/
+router.route('/:ID/generate')
+    .post((req, res) => apiSerializer(reservationLogic.generateInvoice(req.params.ID), res))
 
 module.exports = router

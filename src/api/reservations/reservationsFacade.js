@@ -2,6 +2,7 @@ const statusCodes = require('http-status')
 
 const reservationLogic = require('./reservationsLogic')
 const fileLogic = require('../files/filesLogic')
+const carProblemsLogic = require('../carProblems/carProblemsLogic')
 
 module.exports = {
     uploadFiles: async (reservationId, files) => {
@@ -42,5 +43,16 @@ module.exports = {
                 err
             })
         }
+    },
+    create: reservation => {
+        if (!reservation.problems) return reservationLogic.create(reservation)
+
+        let reservationPrice = 0
+
+        reservation.problems.forEach(problem => {
+            reservationPrice = reservationPrice + problem.price
+        })
+
+        return reservationLogic.update(reservation._id, { price: reservationPrice, ...reservation })
     }
 }
