@@ -37,6 +37,12 @@ mongoose.connect(mongo.URL, { useNewUrlParser: true })
         app.use(bodyParser.json());
 
         app.use('/users', require('./src/api/users/users'));
+        app.use('/brands', require('./src/api/carBrands/carBrands'));
+        app.use('/models', require('./src/api/carModels/carModels'));
+        app.use('/problems', require('./src/api/carProblems/carProblems'));
+        app.use('/reservations', require('./src/api/reservations/reservations'));
+        app.use('/monitors', require('./src/api/monitors/monitors'));
+        app.use('/pieces', require('./src/api/pieces/pieces'));
 
         app.use(notFound);
         app.use(errorHandler);

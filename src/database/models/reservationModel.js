@@ -4,11 +4,13 @@ const { Schema } = require('mongoose')
 const reservationSchema = new Schema({
     carBrandId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'carBrands'
+        ref: 'carBrands',
+        required: true
     },
     carModelId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'carModels'
+        ref: 'carModels',
+        required: true
     },
     clientName: String,
     clientEmail: String,

@@ -5,7 +5,8 @@ const carBrandModelSchema = new Schema({
     name: String,
     carBrandId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'carBrands'
+        ref: 'carBrands',
+        required: true
     }
 })
 

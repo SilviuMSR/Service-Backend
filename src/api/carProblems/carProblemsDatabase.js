@@ -1,0 +1,30 @@
+const { CarProblemModel } = require('../../database/models');
+
+module.exports = {
+    get: options => {
+        let query = {};
+
+        if (options.search.name) {
+            query.name = new RegExp(options.search.name, 'i');
+        }
+
+        return CarProblemModel.find({ ...query })
+            .skip(options.from)
+            .limit(options.limit)
+            .lean()
+            .exec();
+    },
+    count: options => {
+        let query = {};
+
+        if (options.search.name) {
+            query.name = new RegExp(options.search.name, 'i');
+        }
+
+        return CarProblemModel.count({ ...query });
+    },
+    getById: id => CarProblemModel.findById(id),
+    create: problem => CarProblemModel.create(problem),
+    update: (id, newProblem) => CarProblemModel.findByIdAndUpdate(id, newProblem),
+    delete: id => CarProblemModel.findByIdAndDelete(id)
+}
