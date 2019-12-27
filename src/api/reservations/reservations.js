@@ -32,7 +32,7 @@ router.route('/')
         }
     }), res))
 
-    .post((req, res) => apiSerializer(reservationFacade.create(req.body.reservation), res))
+    .post((req, res) => apiSerializer(reservationLogic.create(req.body.reservation), res))
 
 router.route('/:ID')
     .get((req, res) => apiSerializer(reservationLogic.getById(req.params.ID), res))

@@ -7,7 +7,7 @@ const session = require('express-session');
 
 require('dotenv').config();
 const { PORT, mongo } = require('./config/config');
-const { notFound, errorHandler } = require('./src/utils/middlewares');
+const { notFound, errorHandler, isLogged } = require('./src/utils/middlewares');
 
 const app = express();
 
@@ -36,6 +36,17 @@ mongoose.connect(mongo.URL, { useNewUrlParser: true })
         app.use(bodyParser.urlencoded({ extended: true, useUnifiedTopology: true }));
         app.use(bodyParser.json());
 
+        app.use(session({
+            secret: '1234',
+            resave: true,
+            saveUninitialized: false
+        }));
+
+        app.use('/login', require('./src/api/login/login'))
+
+        app.use(isLogged)
+
+        app.use('/logged', (req, res) => res.status(statusCodes.OK).send({ message: 'Logged', username: req.session.auth.username, userId: req.session.auth.userId }));
         app.use('/users', require('./src/api/users/users'));
         app.use('/brands', require('./src/api/carBrands/carBrands'));
         app.use('/models', require('./src/api/carModels/carModels'));

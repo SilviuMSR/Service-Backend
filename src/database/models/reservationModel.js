@@ -5,16 +5,14 @@ const reservationSchema = new Schema({
     carBrandId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'carBrands',
-        required: true
     },
     carModelId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'carModels',
-        required: true
     },
     clientName: String,
     clientEmail: String,
-    status: String, // Accepted / Declined / In progress / Done,
+    status: String, // Panding / Accepted / Declined / In progress / Done,
     createdAt: Date,
     price: Number,
     problem: [{ type: mongoose.Schema.Types.ObjectId, ref: 'carProblems' }],
