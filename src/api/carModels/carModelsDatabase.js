@@ -24,6 +24,7 @@ module.exports = {
         return CarModelModel.count({ ...query, deleted: false });
     },
     getById: id => CarModelModel.findById(id),
+    getByBrandId: id => CarModelModel.find({ carBrandId: id, deleted: false }),
     create: model => CarModelModel.create(model),
     update: (id, newModel) => CarModelModel.findByIdAndUpdate(id, newModel),
     delete: id => CarModelModel.findByIdAndUpdate(id, { deleted: true })

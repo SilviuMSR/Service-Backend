@@ -12,7 +12,10 @@ const reservationSchema = new Schema({
     },
     clientName: String,
     clientEmail: String,
-    status: String, // Panding / Accepted / Declined / In progress / Done,
+    status: {
+        type: String,
+        default: 'Panding'
+    }, // Panding / Accepted / Declined / In progress / Done,
     createdAt: Date,
     price: Number,
     problem: [{ type: mongoose.Schema.Types.ObjectId, ref: 'carProblems' }],

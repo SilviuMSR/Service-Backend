@@ -43,15 +43,15 @@ mongoose.connect(mongo.URL, { useNewUrlParser: true })
         }));
 
         app.use('/login', require('./src/api/login/login'))
-
-        app.use(isLogged)
-
-        app.use('/logged', (req, res) => res.status(statusCodes.OK).send({ message: 'Logged', username: req.session.auth.username, userId: req.session.auth.userId }));
-        app.use('/users', require('./src/api/users/users'));
         app.use('/brands', require('./src/api/carBrands/carBrands'));
         app.use('/models', require('./src/api/carModels/carModels'));
         app.use('/problems', require('./src/api/carProblems/carProblems'));
         app.use('/reservations', require('./src/api/reservations/reservations'));
+
+        app.use(isLogged)
+
+        app.use('/logged', (req, res) => res.status(statusCodes.OK).send({ message: 'Logged', username: req.session.auth ? req.session.auth.username : null, userId: req.session.auth ? req.session.auth.userId : null }));
+        app.use('/users', require('./src/api/users/users'));
         app.use('/monitors', require('./src/api/monitors/monitors'));
         app.use('/pieces', require('./src/api/pieces/pieces'));
 

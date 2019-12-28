@@ -31,4 +31,9 @@ router.route('/:ID')
         .then(response => res.done(response))
         .catch(err => res.err(err))))
 
+router.route('/brand/:BRAND_ID')
+    .get((req, res) => apiSerializer(carModelsLogic.getByBrandId(req.params.BRAND_ID)
+        .then(response => res.done(response))
+        .catch(err => res.err(err))))
+
 module.exports = router
