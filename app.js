@@ -7,7 +7,7 @@ const session = require('express-session');
 
 require('dotenv').config();
 const { PORT, mongo } = require('./config/config');
-const { notFound, errorHandler } = require('./src/utils/middlewares');
+const { notFound, errorHandler, isLogged } = require('./src/utils/middlewares');
 
 const app = express();
 
@@ -29,17 +29,31 @@ app.response.__proto__.err = function (data) {
 mongoose.connect(mongo.URL, { useNewUrlParser: true })
     .then(() => {
         app.use(cors({
-            origin:'http://localhost:3000',
+            origin: 'http://localhost:3000',
             credentials: true
         }));
 
         app.use(bodyParser.urlencoded({ extended: true, useUnifiedTopology: true }));
         app.use(bodyParser.json());
+
         app.use(session({
-            secret: 'MY SECRET KEY',
+            secret: '1234',
             resave: true,
             saveUninitialized: false
         }));
+
+        app.use('/login', require('./src/api/login/login'))
+        app.use('/brands', require('./src/api/carBrands/carBrands'));
+        app.use('/models', require('./src/api/carModels/carModels'));
+        app.use('/problems', require('./src/api/carProblems/carProblems'));
+        app.use('/reservations', require('./src/api/reservations/reservations'));
+
+        app.use(isLogged)
+
+        app.use('/logged', (req, res) => res.status(statusCodes.OK).send({ message: 'Logged', username: req.session.auth ? req.session.auth.username : null, userId: req.session.auth ? req.session.auth.userId : null }));
+        app.use('/users', require('./src/api/users/users'));
+        app.use('/monitors', require('./src/api/monitors/monitors'));
+        app.use('/pieces', require('./src/api/pieces/pieces'));
 
         app.use(notFound);
         app.use(errorHandler);

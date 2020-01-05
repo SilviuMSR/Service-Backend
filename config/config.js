@@ -6,5 +6,11 @@ module.exports = {
     pagination: {
         FROM: 0,
         LIMIT: 10
-    }    
+    },
+    encrypt: {
+        loginAlgorithm: 'sha256',
+        loginOutputType: 'hex'
+    },
+    sessionSecretKey: '1234',
+    sessionName: 'sessionId',
 };
