@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const { Schema } = require('mongoose')
+const CONSTANTS = require('../../utils/constants')
 
 const reservationSchema = new Schema({
     carBrandId: {
@@ -12,9 +13,9 @@ const reservationSchema = new Schema({
     },
     clientName: String,
     clientEmail: String,
-    status: {
+    reservationStatus: {
         type: String,
-        default: 'Panding'
+        default: CONSTANTS.RESERVATION_PANDING
     }, // Panding / Accepted / Declined / In progress / Done,
     createdAt: Date,
     price: Number,

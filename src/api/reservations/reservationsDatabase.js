@@ -12,6 +12,9 @@ module.exports = {
             .skip(options.from)
             .limit(options.limit)
             .populate('file')
+            .populate('problem')
+            .populate('carBrandId')
+            .populate('carModelId')
             .lean()
             .exec();
     },
