@@ -12,7 +12,7 @@ module.exports = {
         if (options.employee === 'true') {
             query.reservationStatus = RESERVATION_ACCEPTED
         }
-        
+
         return ReservationModel.find({ ...query })
             .skip(options.from)
             .limit(options.limit)
@@ -20,6 +20,7 @@ module.exports = {
             .populate('problem')
             .populate('carBrandId')
             .populate('carModelId')
+            .populate('userId')
             .lean()
             .exec();
     },
