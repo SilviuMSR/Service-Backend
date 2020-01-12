@@ -29,10 +29,14 @@ router.route('/')
         limit: Number(req.query.limit),
         search: {
             name: req.query.name
-        }
+        },
+        employee: req.query.employee
     }), res))
 
     .post((req, res) => apiSerializer(reservationLogic.create(req.body.reservation), res))
+
+router.route('/employee/:EMPLOYEEID')
+    .get((req, res) => apiSerializer(reservationLogic.getByEmployeeId(req.params.EMPLOYEEID), res))
 
 router.route('/:ID')
     .get((req, res) => apiSerializer(reservationLogic.getById(req.params.ID), res))

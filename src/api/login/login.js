@@ -8,12 +8,12 @@ router.route('/')
          .then(response => {
             req.session.auth = {
                userId: response.id,
-               username: response.username
+               username: response.username,
+               position: response.position
             }
             res.json(response).end()
          })
          .catch(err => res.status(err.status).end())
    })
-
 
 module.exports = router

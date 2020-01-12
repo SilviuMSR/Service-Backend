@@ -12,7 +12,8 @@ let logic = {
 				if (valid) {
 					return Promise.resolve({
 						id: user.id,
-						username: user.username
+						username: user.username,
+						position: user.position
 					})
 				}
 				return Promise.reject({ status: httpStatus.BAD_REQUEST })
