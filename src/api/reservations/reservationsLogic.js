@@ -2,7 +2,7 @@ const database = require('./reservationsDatabase');
 const CONSTANTS = require('../../utils/constants')
 const mailService = require('../../utils/mail')
 
-module.exports = {
+logic = {
     get: options => {
         return Promise.all([
             database.get(options),
@@ -36,7 +36,6 @@ module.exports = {
                     to: result.clientEmail,
                     text: 'Rezervarea a fost acceptata. Multumim!'
                 })
-                console.log("HERE", result)
             }
             if (newReservation.reservationStatus === CONSTANTS.RESERVATION_DECLINED) {
                 mailService.sendMail({
@@ -49,3 +48,5 @@ module.exports = {
         })
     }
 }
+
+module.exports = logic

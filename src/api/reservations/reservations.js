@@ -48,6 +48,6 @@ router.route('/:ID/files')
 
 /* Generate invoice*/
 router.route('/:ID/generate')
-    .post((req, res) => apiSerializer(reservationLogic.generateInvoice(req.params.ID), res))
+    .post((req, res) => apiSerializer(reservationFacade.generateInvoice(req.params.ID), res))
 
 module.exports = router
