@@ -7,6 +7,7 @@ const fileSchema = new Schema({
         ref: 'reservations',
         required: true
     },
+    customName: String,
     originalName: String,
     path: String,
     deleted: {

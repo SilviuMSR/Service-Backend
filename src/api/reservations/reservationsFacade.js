@@ -11,7 +11,6 @@ const invoicePdfPath = path.join(__dirname, '..', '..', '..', 'files', 'invoices
 
 facade = {
     uploadFiles: async (reservationId, files) => {
-        console.log(files)
         if (files.length < 1) return Promise.reject({ status: statusCodes.UNPROCESSABLE_ENTITY, message: 'NO FILE' })
 
         try {
@@ -25,6 +24,7 @@ facade = {
 
                 return fileLogic.create({
                     reservationId: reservationId,
+                    customName: files[index].customName,
                     originalName: files[index].originalname,
                     path: files[index].path
                 }).then(file => {
@@ -86,7 +86,8 @@ facade = {
 
             let fileToUpload = {
                 originalname: pdfPath.name.split('/')[pdfPath.name.split('/').length - 1],
-                path: pdfPath.name
+                path: pdfPath.name,
+                customName: `Factura-${reservation.clientName}.pdf`
             }
 
             await facade.uploadFiles(reservationId, Array(fileToUpload))
