@@ -6,7 +6,7 @@ const carProblemSchema = new Schema({
     name: String,
     difficulty: {
         type: String,
-        default: CONSTANTS.PROBLEM_EASY
+        default: CONSTANTS.CAR_PROBLEMS[0]
     },
     steps: [String],
     price: Number,

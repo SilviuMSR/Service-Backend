@@ -1,4 +1,5 @@
 const database = require('./carProblemsDatabase');
+const CONSTANTS = require('../../utils/constants');
 
 const logic = {
     get: options => {
@@ -11,7 +12,12 @@ const logic = {
         }))
     },
     getById: id => database.getById(id),
-    create: problem => database.create(problem),
+    create: problem => {
+
+        if (!CONSTANTS.CAR_PROBLEMS.includes(problem.difficulty)) return Promise.reject()
+
+        return database.create(problem)
+    },
     delete: id => database.delete(id),
     update: async (id, body, modifySteps) => {
         if (!modifySteps) return database.update(id, body.problem)
