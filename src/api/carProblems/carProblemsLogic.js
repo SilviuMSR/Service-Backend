@@ -13,12 +13,23 @@ const logic = {
     },
     getById: id => database.getById(id),
     create: problem => {
-
         if (!CONSTANTS.CAR_PROBLEMS.includes(problem.difficulty)) return Promise.reject()
 
         return database.create(problem)
     },
-    delete: id => database.delete(id),
+    delete: async (id, deleteStep) => {
+        if (!deleteStep) return database.delete(id)
+
+        let currentProblem = await logic.getById(id)
+        let steps = currentProblem.steps
+        let stepPosition = steps.findIndex(step => step.toLowerCase() === deleteStep.toLowerCase())
+
+        if (stepPosition > -1) {
+            steps.splice(steps.indexOf(deleteStep), 1)
+        }
+        currentProblem.steps = steps
+        return database.update(id, currentProblem)
+    },
     update: async (id, body, modifySteps) => {
         if (!modifySteps) return database.update(id, body.problem)
 

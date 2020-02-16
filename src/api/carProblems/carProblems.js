@@ -29,7 +29,7 @@ router.route('/:ID')
             .then(response => res.done(response))
             .catch(err => res.err(err)))
     })
-    .delete((req, res) => apiSerializer(carProblemsLogic.delete(req.params.ID)
+    .delete((req, res) => apiSerializer(carProblemsLogic.delete(req.params.ID, req.query.deleteStep)
         .then(response => res.done(response))
         .catch(err => res.err(err))))
 
