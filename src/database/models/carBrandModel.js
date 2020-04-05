@@ -6,7 +6,8 @@ const carBrandSchema = new Schema({
     deleted: {
         type: Boolean,
         default: false
-    }
+    },
+    logoPath: String
 })
 
 module.exports = mongoose.model('carBrands', carBrandSchema)
