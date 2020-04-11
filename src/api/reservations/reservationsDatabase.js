@@ -5,17 +5,17 @@ module.exports = {
     get: options => {
         let query = {};
 
-        if (options.search.name) {
+        if (options && options.search.name) {
             query.name = new RegExp(options.search.name, 'i');
         }
 
-        if (options.employee === 'true') {
+        if (options && options.employee === 'true') {
             query.reservationStatus = RESERVATION_ACCEPTED
         }
 
         return ReservationModel.find({ ...query })
-            .skip(options.from)
-            .limit(options.limit)
+            .skip(options ? options.from : 0)
+            .limit(options ? options.limit : '')
             .populate('file')
             .populate('problem')
             .populate('carBrandId')

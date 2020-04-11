@@ -7,5 +7,6 @@ module.exports = {
 
     CAR_PROBLEMS: ['EASY', 'MEDIUM', 'HARD'],
 
-    DEFAULT_IMAGE_WIDTH: 1024
+    DEFAULT_IMAGE_WIDTH: 1024,
+    NOTIFICATION_TIME: 24 * 60 * 60 * 1000
 }

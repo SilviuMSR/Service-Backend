@@ -72,7 +72,7 @@ facade = {
                 price: reservation.price
             }, invoicePdfPath)
 
-            let invoiceEmail = await mailService.sendMail({
+            await mailService.sendMail({
                 to: reservation.clientEmail,
                 subject: 'Factura rezervare',
                 text: 'Mai jos gasiti atasata factura!',
