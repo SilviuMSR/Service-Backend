@@ -41,7 +41,6 @@ mongoose.connect(mongo.URL, { useNewUrlParser: true })
             resave: true,
             saveUninitialized: false
         }));
-        
         app.use('/static', express.static('files'))
         app.use('/login', require('./src/api/login/login'))
         app.use('/brands', require('./src/api/carBrands/carBrands'));
