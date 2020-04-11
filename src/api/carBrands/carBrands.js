@@ -8,7 +8,7 @@ const carBrandLogic = require('./carBrandsLogic')
 const { upload, resizeImages } = require('../../utils/multer')
 
 const BRAND_IMAGE_PATH = path.join(__dirname, '..', '..', '..', 'files', 'images', 'brand-images')
-console.log(BRAND_IMAGE_PATH)
+
 router.route('/')
     .get((req, res) => apiSerializer(carBrandLogic.get({
         from: Number(req.query.from),
