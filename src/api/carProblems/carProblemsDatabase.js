@@ -25,6 +25,8 @@ module.exports = {
     },
     getById: id => CarProblemModel.findById(id),
     create: problem => CarProblemModel.create(problem),
-    update: (id, newProblem) => CarProblemModel.findByIdAndUpdate(id, newProblem),
+    update: (id, newProblem) => {
+        return CarProblemModel.findByIdAndUpdate(id, newProblem)
+    },
     delete: id => CarProblemModel.findByIdAndUpdate(id, { deleted: true })
 }

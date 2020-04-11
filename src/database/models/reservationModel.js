@@ -20,7 +20,8 @@ const reservationSchema = new Schema({
     createdAt: Date,
     price: Number,
     problem: [{ type: mongoose.Schema.Types.ObjectId, ref: 'carProblems' }],
-    file: [{ type: mongoose.Schema.Types.ObjectId, ref: 'files' }]
+    file: [{ type: mongoose.Schema.Types.ObjectId, ref: 'files' }],
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'users' }
 })
 
 module.exports = mongoose.model('reservations', reservationSchema)

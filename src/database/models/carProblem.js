@@ -1,8 +1,13 @@
 const mongoose = require('mongoose')
 const { Schema } = require('mongoose')
+const CONSTANTS = require('../../utils/constants')
 
 const carProblemSchema = new Schema({
     name: String,
+    difficulty: {
+        type: String,
+        default: CONSTANTS.CAR_PROBLEMS[0]
+    },
     steps: [String],
     price: Number,
     deleted: {

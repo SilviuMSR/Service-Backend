@@ -9,6 +9,8 @@ module.exports = {
         }
 
         return PieceModel.find({ ...query, deleted: false })
+            .populate('carBrandId', 'name')
+            .populate('carModelId', 'name')
             .skip(options.from)
             .limit(options.limit)
             .lean()

@@ -1,4 +1,5 @@
 const { ReservationModel } = require('../../database/models');
+const { RESERVATION_ACCEPTED } = require('../../utils/constants')
 
 module.exports = {
     get: options => {
@@ -8,6 +9,10 @@ module.exports = {
             query.name = new RegExp(options.search.name, 'i');
         }
 
+        if (options.employee === 'true') {
+            query.reservationStatus = RESERVATION_ACCEPTED
+        }
+
         return ReservationModel.find({ ...query })
             .skip(options.from)
             .limit(options.limit)
@@ -15,6 +20,7 @@ module.exports = {
             .populate('problem')
             .populate('carBrandId')
             .populate('carModelId')
+            .populate('userId')
             .lean()
             .exec();
     },
@@ -27,7 +33,11 @@ module.exports = {
 
         return ReservationModel.count({ ...query });
     },
-    getById: id => ReservationModel.findById(id).populate('file').lean().exec(),
+    countByEmployeeId: employeeId => {
+        return ReservationModel.count({ userId: employeeId });
+    },
+    getByEmployeeId: employeeId => ReservationModel.find({ userId: employeeId }).populate('problem').populate('carBrandId').populate('carModelId').populate('userId').lean().exec(),
+    getById: id => ReservationModel.findById(id).populate('file').populate('problem').populate('carBrandId').populate('carModelId').populate('userId').lean().exec(),
     create: reservation => ReservationModel.create(reservation),
     update: (id, newReservation) => ReservationModel.findByIdAndUpdate(id, newReservation),
     delete: id => ReservationModel.findByIdAndDelete(id)

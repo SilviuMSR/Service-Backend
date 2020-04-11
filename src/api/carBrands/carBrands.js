@@ -1,9 +1,13 @@
 const express = require('express')
 const router = express.Router()
+const path = require('path')
 
 const { apiSerializer } = require('../../utils/apiSerializer')
 
 const carBrandLogic = require('./carBrandsLogic')
+const { upload, resizeImages } = require('../../utils/multer')
+
+const BRAND_IMAGE_PATH = path.join(__dirname, '..','..', '..', 'files', 'images', 'brand-images')
 
 router.route('/')
     .get((req, res) => apiSerializer(carBrandLogic.get({
@@ -30,5 +34,17 @@ router.route('/:ID')
     .delete((req, res) => apiSerializer(carBrandLogic.delete(req.params.ID)
         .then(response => res.done(response))
         .catch(err => res.err(err))))
+
+router.route('/:ID/image')
+    .get((req, res) => carBrandLogic.getLogo(req.params.ID).then(logoPath => res.sendFile(logoPath)))
+    .post(upload(BRAND_IMAGE_PATH).any(),
+        resizeImages(BRAND_IMAGE_PATH),
+        (req, res) => apiSerializer(carBrandLogic.uploadLogo(req.params.ID, req.files), res)
+    )
+    .put(
+        upload(BRAND_IMAGE_PATH).any(),
+        resizeImages(BRAND_IMAGE_PATH),
+        (req, res) => apiSerializer(carBrandLogic.editLogo(req.params.ID, req.files), res)
+    )
 
 module.exports = router
