@@ -8,6 +8,7 @@ const session = require('express-session');
 require('dotenv').config();
 const { PORT, mongo } = require('./config/config');
 const { notFound, errorHandler, isLogged } = require('./src/utils/middlewares');
+const { checkForNotifications } = require('./src/utils/helpers')
 
 const app = express();
 
@@ -41,6 +42,9 @@ mongoose.connect(mongo.URL, { useNewUrlParser: true })
             resave: true,
             saveUninitialized: false
         }));
+
+        checkForNotifications()
+
         app.use('/static', express.static('files'))
         app.use('/login', require('./src/api/login/login'))
         app.use('/brands', require('./src/api/carBrands/carBrands'));
