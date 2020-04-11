@@ -7,7 +7,7 @@ const { apiSerializer } = require('../../utils/apiSerializer')
 const carBrandLogic = require('./carBrandsLogic')
 const { upload, resizeImages } = require('../../utils/multer')
 
-const BRAND_IMAGE_PATH = path.join(__dirname, '..','..', '..', 'files', 'images', 'brand-images')
+const BRAND_IMAGE_PATH = path.join(__dirname, '..', '..', '..', 'files', 'images', 'brand-images')
 
 router.route('/')
     .get((req, res) => apiSerializer(carBrandLogic.get({

@@ -1,7 +1,7 @@
 module.exports = {
     PORT: process.env.PORT || 9000,
     mongo: {
-        URL: process.env.MONGO_URL || 'mongodb://localhost/service'
+        URL: process.env.MONGO_URL || 'mongodb://service_mongo:27017'
     },
     pagination: {
         FROM: 0,

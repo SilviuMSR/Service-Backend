@@ -1,6 +1,5 @@
 const statusCodes = require('http-status-codes');
 const httpStatus = require('http-status')
-const userLogic = require('../api/users/usersLogic')
 
 module.exports = {
     notFound: (req, res, next) => {
