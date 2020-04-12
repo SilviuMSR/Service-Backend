@@ -52,6 +52,7 @@ mongoose.connect(mongo.URL, { useNewUrlParser: true })
         app.use('/problems', require('./src/api/carProblems/carProblems'));
         app.use('/reservations', require('./src/api/reservations/reservations'));
         app.use('/users', require('./src/api/users/users'));
+        app.use('/settings', require('./src/api/settings/settings'));
 
         app.use(isLogged)
 
