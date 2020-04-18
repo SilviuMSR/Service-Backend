@@ -6,6 +6,7 @@ const moment = require('moment')
 let checkForNotificationsInterval = null
 // default 1 year
 let checkTimeMS = CONSTANTS.NOTIFICATION_TIME
+let noMonths = 12
 
 const helpers = {
     checkForNotifications: function (req, res, next) {
@@ -13,7 +14,7 @@ const helpers = {
         checkForNotificationsInterval = setInterval(async function () {
             console.log("Checking for cars which need revision!", checkTimeMS)
             const reservations = await reservationDatabase.get()
-            const reservationsToSendEmail = reservations.filter(reservation => moment(reservation.createdAt).add(1, 'years').isBefore(moment()))
+            const reservationsToSendEmail = reservations.filter(reservation => moment(reservation.createdAt).add(noMonths, 'months').isBefore(moment()))
             const mappedReservations = reservationsToSendEmail.map(reservation => ({ email: reservation.clientEmail, brand: reservation.carBrandId.name, model: reservation.carModelId.name }))
             for (email of mappedReservations) {
                 const sentEmail = await mailService.sendMail({
@@ -28,15 +29,21 @@ const helpers = {
             }
         }, checkTimeMS);
     },
-    clearNotifications: function (req, res, next) {
-        console.log("Notifications stopped!")
+    clearNotifications: message => {
+        console.log(message || "Notifications stopped!")
         clearInterval(checkForNotificationsInterval)
+        if (message) helpers.checkForNotifications()
     },
-    updateCheckTime: noMonths => {
-        checkTimeMS = noMonths * 2 * 60 * 60 * 1000
+    updateSettings: settings => {
+        checkTimeMS = settings.checkTime ? settings.checkTime * 2 * 60 * 60 * 1000 : CONSTANTS.NOTIFICATION_TIME
+        noMonths = settings.months ? settings.months : 12
+        helpers.clearNotifications("Restarting interval...")
     },
-    getCheckTime: () => {
-        return checkTimeMS / 2 / 60 / 60 / 1000
+    getSettings: () => {
+        return {
+            checkTime: checkTimeMS / 2 / 60 / 60 / 1000,
+            noMonths: noMonths
+        }
     }
 }
 

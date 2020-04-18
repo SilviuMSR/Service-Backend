@@ -10,10 +10,10 @@ module.exports = {
         return Promise.resolve({})
     },
     update: settings => {
-        helpers.updateCheckTime(settings.months)
+        helpers.updateSettings(settings)
         return Promise.resolve({})
     },
     get: () => {
-        return Promise.resolve({ months: helpers.getCheckTime() })
+        return Promise.resolve({ settings: helpers.getSettings() })
     }
 }
