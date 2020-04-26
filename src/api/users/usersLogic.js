@@ -11,6 +11,7 @@ module.exports = {
         }))
     },
     getById: id => database.getById(id),
+    getEmployees: () => database.getEmployees(),
     create: user => database.create(user),
     delete: id => database.delete(id),
     update: (id, newUser) => database.update(id, newUser)

@@ -4,20 +4,20 @@ module.exports = {
     get: options => {
         let query = {};
 
-        if (options.search.name) {
+        if (options && options.search && options.search.name) {
             query.name = new RegExp(options.search.name, 'i');
         }
 
         return CarProblemModel.find({ ...query, deleted: false })
-            .skip(options.from)
-            .limit(options.limit)
+            .skip(options ? options.from : 0)
+            .limit(options ? options.limit : '')
             .lean()
             .exec();
     },
     count: options => {
         let query = {};
 
-        if (options.search.name) {
+        if (options && options.search && options.search.name) {
             query.name = new RegExp(options.search.name, 'i');
         }
 
