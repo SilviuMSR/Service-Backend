@@ -54,12 +54,12 @@ mongoose.connect(mongo.URL, { useNewUrlParser: true })
         app.use('/users', require('./src/api/users/users'));
         app.use('/statistics', require('./src/api/statistics/statistics'));
         app.use('/settings', require('./src/api/settings/settings'));
-
-        //app.use(isLogged)
-
-        //app.use('/logged', (req, res) => res.status(statusCodes.OK).send({ message: 'Logged', username: req.session.auth ? req.session.auth.username : null, userId: req.session.auth ? req.session.auth.userId : null, position: req.session.auth ? req.session.auth.position : null }));
         app.use('/monitors', require('./src/api/monitors/monitors'));
         app.use('/pieces', require('./src/api/pieces/pieces'));
+
+        app.use(isLogged)
+
+        app.use('/logged', (req, res) => res.status(statusCodes.OK).send({ message: 'Logged', username: req.session.auth ? req.session.auth.username : null, userId: req.session.auth ? req.session.auth.userId : null, position: req.session.auth ? req.session.auth.position : null }));
         app.use('/logout', require('./src/api/logout/logout'))
 
         app.use(notFound);

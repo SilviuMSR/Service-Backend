@@ -21,7 +21,7 @@ statisticsLogic = {
 
         resultJson.reservationsForDays = []
         // Compute reservations based on created date
-        for (let i = 0; i < 14; i++) {
+        for (let i = 14; i >= 0; i--) {
             const dateForReservation = moment(currentDate).subtract(i, 'days').format('YYYY-MM-DD')
             const validReservations = allReservations.reservations.filter(reservation => moment(reservation.createdAt, 'YYYY-MM-DD').isSame(dateForReservation))
             resultJson.reservationsForDays.push({ date: dateForReservation, nrOfReservations: validReservations.length })
