@@ -4,13 +4,12 @@ const { RESERVATION_ACCEPTED } = require('../../utils/constants')
 module.exports = {
     get: options => {
         let query = {};
-        console.log(options)
 
         if (options && options.search && options.search.name) {
             query.name = new RegExp(options.search.name, 'i');
         }
 
-        if (options && options.eployee && options.employee === 'true') {
+        if (options && options.employee && options.employee === 'true') {
             query.reservationStatus = RESERVATION_ACCEPTED
         }
 

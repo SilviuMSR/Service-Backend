@@ -1,6 +1,7 @@
 const reservationLogic = require('../reservations/reservationsLogic')
 const userLogic = require('../users/usersLogic')
 const brandsLogic = require('../carBrands/carBrandsLogic')
+const modelLogic = require('../carModels/carModelsLogic')
 
 const moment = require('moment')
 const CONSTANTS = require('../../utils/constants')
@@ -38,7 +39,8 @@ statisticsLogic = {
 
         for (const employee of employees) {
             const validReservations = allReservations.reservations.filter(reservation => reservation.userId && (reservation.userId.username.toLowerCase() === employee.username.toLowerCase())).length
-            resultJson.reservationsPerEmployee.push({ employee: employee.username, nrOfReservations: validReservations })
+            const doneReservations = allReservations.reservations.filter(reservation => reservation.userId && (reservation.userId.username.toLowerCase() === employee.username.toLowerCase()) && reservation.reservationStatus === CONSTANTS.RESERVATION_DONE).length
+            resultJson.reservationsPerEmployee.push({ employee: employee.username, nrOfReservations: validReservations, done: doneReservations })
         }
 
         resultJson.reservationsPerEmployee = resultJson.reservationsPerEmployee.sort((a, b) => a.nrOfReservations < b.nrOfReservations ? 1 : -1)
@@ -51,12 +53,25 @@ statisticsLogic = {
         const brands = await brandsLogic.get()
 
         const resultJson = {}
+        resultJson.reservationsPerModel = []
         resultJson.reservationsPerBrand = []
         resultJson.reservationsPerProblem = []
 
         for (const brand of brands.brands) {
-            const validReservations = allReservations.reservations.filter(reservation => reservation.carBrandId && (reservation.carBrandId.name.toLowerCase() === brand.name.toLowerCase())).length
-            resultJson.reservationsPerBrand.push({ brand: brand.name, nrOfReservations: validReservations })
+
+            const validBrandReservations = allReservations.reservations.filter(reservation => reservation.carBrandId &&
+                (reservation.carBrandId.name.toLowerCase() === brand.name.toLowerCase())).length
+            resultJson.reservationsPerBrand.push({ brand: brand.name, nrOfReservations: validBrandReservations })
+
+            const associatedModels = await modelLogic.getByBrandId(brand._id)
+            if (associatedModels && associatedModels.length) {
+                for (const model of associatedModels) {
+                    const validReservations = allReservations.reservations.filter(reservation => reservation.carBrandId &&
+                        (reservation.carBrandId.name.toLowerCase() === brand.name.toLowerCase() &&
+                            reservation.carModelId.name.toLowerCase() === model.name.toLowerCase())).length
+                    resultJson.reservationsPerModel.push({ model: model.name, brand: brand.name, nrOfReservations: validReservations })
+                }
+            }
         }
 
         // Map every reservation to its problems
