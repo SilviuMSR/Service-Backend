@@ -56,6 +56,7 @@ mongoose.connect(mongo.URL, { useNewUrlParser: true })
         app.use('/settings', require('./src/api/settings/settings'));
         app.use('/monitors', require('./src/api/monitors/monitors'));
         app.use('/pieces', require('./src/api/pieces/pieces'));
+        app.use('/vacations', require('./src/api/vacationRequests/vacationRequests'))
 
         app.use(isLogged)
 

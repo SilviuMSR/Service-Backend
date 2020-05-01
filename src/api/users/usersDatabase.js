@@ -24,7 +24,7 @@ module.exports = {
 
         return UserModel.count({ ...query, delete: false });
     },
-    getById: id => UserModel.findById(id),
+    getById: id => UserModel.findById(id).lean().exec(),
     getEmployees: () => UserModel.find({ position: EMPLOYEE }),
     create: user => UserModel.create(user),
     update: (id, newUser) => UserModel.findByIdAndUpdate(id, newUser),

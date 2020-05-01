@@ -6,5 +6,6 @@ module.exports = {
     PieceModel: require('./pieceModel'),
     CarProblemModel: require('./carProblem'),
     MonitorModel: require('./monitorModel'),
-    FileModel: require('./fileModel')
+    FileModel: require('./fileModel'),
+    VacationRequestModel: require('./vacationRequestModel')
 }

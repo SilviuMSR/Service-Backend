@@ -6,6 +6,15 @@ module.exports = {
     RESERVATION_DONE: 'DONE',
 
     CAR_PROBLEMS: ['EASY', 'MEDIUM', 'HARD'],
+    VACATION_REQUEST_STATUS: {
+        ACCEPTED: 'ACCEPTED',
+        DECLINED: 'DECLINED',
+        PENDING: 'PENDING'
+    },
+    USER_STATUS: {
+        AVAILABLE: 'AVAILABLE',
+        ON_VACATION: 'ONVACATION'
+    },
 
     EMPLOYEE: 'EMPLOYEE',
 
