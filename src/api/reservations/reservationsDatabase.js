@@ -6,7 +6,7 @@ module.exports = {
         let query = {};
 
         if (options && options.search && options.search.name) {
-            query.name = new RegExp(options.search.name, 'i');
+            query.clientName = new RegExp(options.search.name, 'i');
         }
 
         if (options && options.employee && options.employee === 'true') {
