@@ -13,6 +13,7 @@ const userSchema = new Schema({
         default: uuid()
     },
     userStatus: String, // Disponibil or On Vacantion
+    photoPath: String,
     deleted: {
         type: Boolean,
         default: false

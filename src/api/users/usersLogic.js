@@ -14,5 +14,9 @@ module.exports = {
     getEmployees: () => database.getEmployees(),
     create: user => database.create(user),
     delete: id => database.delete(id),
-    update: (id, newUser) => database.update(id, newUser)
+    update: (id, newUser) => database.update(id, newUser),
+    uploadLogo: (id, files) => {
+        if (!files || !files[0]) return Promise.reject({ message: 'No file' })
+        return database.update(id, { photoPath: `images/user-images/${files[0].filename}` })
+    },
 }

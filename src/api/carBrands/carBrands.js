@@ -36,15 +36,9 @@ router.route('/:ID')
         .catch(err => res.err(err))))
 
 router.route('/:ID/image')
-    .get((req, res) => carBrandLogic.getLogo(req.params.ID).then(logoPath => res.sendFile(logoPath)))
     .post(upload(BRAND_IMAGE_PATH).any(),
         resizeImages(BRAND_IMAGE_PATH),
         (req, res) => apiSerializer(carBrandLogic.uploadLogo(req.params.ID, req.files), res)
-    )
-    .put(
-        upload(BRAND_IMAGE_PATH).any(),
-        resizeImages(BRAND_IMAGE_PATH),
-        (req, res) => apiSerializer(carBrandLogic.editLogo(req.params.ID, req.files), res)
     )
 
 module.exports = router

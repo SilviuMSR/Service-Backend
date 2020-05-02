@@ -39,7 +39,11 @@ const resizeImages = destination => async (req, res, next) => {
 
                 //resize and delete old file
                 return sharp(currentFilePath)
-                    .resize({ width: CONSTANTS.DEFAULT_IMAGE_WIDTH, withoutEnlargement: true })
+                    .resize({
+                        width: 1024,
+                        height: 1024,
+                        withoutEnlargement: true
+                    })
                     .toFormat('jpeg')
                     .toFile(newFilePath).then(() => new Promise((resolve, reject) => {
                         fs.unlink(currentFilePath, err => {

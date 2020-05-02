@@ -1,9 +1,13 @@
 const express = require('express')
 const router = express.Router()
+const path = require('path')
 
 const { apiSerializer } = require('../../utils/apiSerializer')
+const { upload, resizeImages } = require('../../utils/multer')
 
 const userLogic = require('./usersLogic')
+
+const USER_IMAGE_PATH = path.join(__dirname, '..', '..', '..', 'files', 'images', 'user-images')
 
 router.route('/')
     .get((req, res) => apiSerializer(userLogic.get({
@@ -30,5 +34,11 @@ router.route('/:ID')
     .delete((req, res) => apiSerializer(userLogic.delete(req.params.ID)
         .then(response => res.done(response))
         .catch(err => res.err(err))))
+
+router.route('/:ID/image')
+    .post(upload(USER_IMAGE_PATH).any(),
+        resizeImages(USER_IMAGE_PATH),
+        (req, res) => apiSerializer(userLogic.uploadLogo(req.params.ID, req.files), res)
+    )
 
 module.exports = router
