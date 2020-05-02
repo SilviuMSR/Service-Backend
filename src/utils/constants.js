@@ -19,5 +19,11 @@ module.exports = {
     EMPLOYEE: 'EMPLOYEE',
 
     DEFAULT_IMAGE_WIDTH: 1024,
-    NOTIFICATION_TIME: 24 * 60 * 60 * 1000
+    NOTIFICATION_TIME: 60 * 60 * 24 * 10000,
+    NOTIFICATION_FORMAT: 'days',
+    NOTIFICATION_FORMAT_TYPE: {
+        MINUTES: 'minutes',
+        DAYS: 'days',
+        HOURS: 'hours'
+    }
 }

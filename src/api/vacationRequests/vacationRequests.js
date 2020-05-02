@@ -12,7 +12,8 @@ router.route('/')
         limit: Number(req.query.limit),
         search: {
             name: req.query.name
-        }
+        },
+        employee: req.query.employee
     })
         .then(response => res.done(response))
         .catch(err => res.err(err))))
