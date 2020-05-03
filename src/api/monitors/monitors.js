@@ -7,10 +7,10 @@ const monitorLogic = require('./monitorsLogic')
 
 router.route('/')
     .get((req, res) => apiSerializer(monitorLogic.get({
-        from: Number(req.query.from),
-        limit: Number(req.query.limit),
+        from: Number(req.query.from || 0),
+        limit: Number(req.query.limit || 10),
         search: {
-            name: req.query.name
+            name: req.query.name || ''
         }
     })
         .then(response => res.done(response))

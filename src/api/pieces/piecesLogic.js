@@ -11,6 +11,7 @@ module.exports = {
         }))
     },
     getById: id => database.getById(id),
+    getByBarCode: id => database.getByBarCode(id),
     create: piece => database.create(piece),
     delete: id => database.delete(id),
     update: (id, newPiece) => database.update(id, newPiece)

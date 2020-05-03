@@ -25,12 +25,12 @@ const upload = multer({
 
 router.route('/')
     .get((req, res) => apiSerializer(reservationLogic.get({
-        from: Number(req.query.from),
-        limit: Number(req.query.limit),
+        from: Number(req.query.from || 0),
+        limit: Number(req.query.limit || 10),
         search: {
-            name: req.query.name
+            name: req.query.name || ''
         },
-        employee: req.query.employee
+        employee: req.query.employee || ''
     }), res))
 
     .post((req, res) => apiSerializer(reservationLogic.create(req.body.reservation), res))

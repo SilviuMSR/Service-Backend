@@ -7,16 +7,21 @@ const piecesLogic = require('./piecesLogic')
 
 router.route('/')
     .get((req, res) => apiSerializer(piecesLogic.get({
-        from: Number(req.query.from),
-        limit: Number(req.query.limit),
+        from: Number(req.query.from || 0),
+        limit: Number(req.query.limit || 10),
         search: {
-            name: req.query.name
+            name: req.query.name || ''
         }
     })
         .then(response => res.done(response))
         .catch(err => res.err(err))))
 
     .post((req, res) => apiSerializer(piecesLogic.create(req.body.piece)
+        .then(response => res.done(response))
+        .catch(err => res.err(err))))
+
+router.route('/barcode/:ID')
+    .get((req, res) => apiSerializer(piecesLogic.getByBarCode(req.params.ID)
         .then(response => res.done(response))
         .catch(err => res.err(err))))
 

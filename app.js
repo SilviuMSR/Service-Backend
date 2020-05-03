@@ -58,9 +58,9 @@ mongoose.connect(mongo.URL, { useNewUrlParser: true })
         app.use('/pieces', require('./src/api/pieces/pieces'));
         app.use('/vacations', require('./src/api/vacationRequests/vacationRequests'))
 
-        app.use(isLogged)
+        //app.use(isLogged)
 
-        app.use('/logged', (req, res) => res.status(statusCodes.OK).send({ message: 'Logged', username: req.session.auth ? req.session.auth.username : null, userId: req.session.auth ? req.session.auth.userId : null, position: req.session.auth ? req.session.auth.position : null }));
+        //app.use('/logged', (req, res) => res.status(statusCodes.OK).send({ message: 'Logged', username: req.session.auth ? req.session.auth.username : null, userId: req.session.auth ? req.session.auth.userId : null, position: req.session.auth ? req.session.auth.position : null }));
         app.use('/logout', require('./src/api/logout/logout'))
 
         app.use(notFound);

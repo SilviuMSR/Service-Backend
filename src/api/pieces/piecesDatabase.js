@@ -16,6 +16,13 @@ module.exports = {
             .lean()
             .exec();
     },
+    getByBarCode: id => {
+        return PieceModel.find({ code: id, deleted: false })
+            .populate('carBrandId', 'name')
+            .populate('carModelId', 'name')
+            .lean()
+            .exec();
+    },
     count: options => {
         let query = {};
 

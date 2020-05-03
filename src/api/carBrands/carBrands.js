@@ -11,10 +11,10 @@ const BRAND_IMAGE_PATH = path.join(__dirname, '..', '..', '..', 'files', 'images
 
 router.route('/')
     .get((req, res) => apiSerializer(carBrandLogic.get({
-        from: Number(req.query.from),
-        limit: Number(req.query.limit),
+        from: Number(req.query.from || 0),
+        limit: Number(req.query.limit || ''),
         search: {
-            name: req.query.name
+            name: req.query.name || ''
         }
     })
         .then(response => res.done(response))
