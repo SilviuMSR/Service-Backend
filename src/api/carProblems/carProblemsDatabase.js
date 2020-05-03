@@ -21,7 +21,8 @@ module.exports = {
             query.name = new RegExp(options.search.name, 'i');
         }
 
-        return CarProblemModel.count({ ...query, deleted: false });
+        return CarProblemModel.count({ ...query, deleted: false }).skip(options ? options.from : 0)
+            .limit(options ? options.limit : '');
     },
     getById: id => CarProblemModel.findById(id),
     create: problem => CarProblemModel.create(problem),

@@ -10,8 +10,8 @@ module.exports = {
         }
 
         return UserModel.find({ ...query, deleted: false })
-            .skip(options.from)
-            .limit(options.limit)
+            .skip(options ? options.from : 0)
+            .limit(options ? options.limit : '')
             .lean()
             .exec();
     },
@@ -22,7 +22,8 @@ module.exports = {
             query.username = new RegExp(options.search.name, 'i');
         }
 
-        return UserModel.count({ ...query, delete: false });
+        return UserModel.count({ ...query, deleted: false }).skip(options ? options.from : 0)
+            .limit(options ? options.limit : '');
     },
     getById: id => UserModel.findById(id).lean().exec(),
     getEmployees: () => UserModel.find({ position: EMPLOYEE }),

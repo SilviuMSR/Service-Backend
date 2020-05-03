@@ -12,7 +12,7 @@ module.exports = {
         if (options && options.employee && options.employee === 'true') {
             query.reservationStatus = RESERVATION_ACCEPTED
         }
-
+        
         return ReservationModel.find({ ...query })
             .skip(options ? options.from : 0)
             .limit(options ? options.limit : '')
@@ -31,7 +31,8 @@ module.exports = {
             query.name = new RegExp(options.search.name, 'i');
         }
 
-        return ReservationModel.count({ ...query });
+        return ReservationModel.count({ ...query }).skip(options ? options.from : 0)
+            .limit(options ? options.limit : '');
     },
     countByEmployeeId: employeeId => {
         return ReservationModel.count({ userId: employeeId });

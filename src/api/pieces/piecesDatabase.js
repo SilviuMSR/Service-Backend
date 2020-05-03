@@ -11,8 +11,8 @@ module.exports = {
         return PieceModel.find({ ...query, deleted: false })
             .populate('carBrandId', 'name')
             .populate('carModelId', 'name')
-            .skip(options.from)
-            .limit(options.limit)
+            .skip(options ? options.from : 0)
+            .limit(options ? options.limit : '')
             .lean()
             .exec();
     },
@@ -23,7 +23,8 @@ module.exports = {
             query.name = new RegExp(options.search.name, 'i');
         }
 
-        return PieceModel.count({ ...query, deleted: false });
+        return PieceModel.count({ ...query, deleted: false }).skip(options.from)
+            .limit(options.limit);
     },
     getById: id => PieceModel.findById(id),
     create: piece => PieceModel.create(piece),

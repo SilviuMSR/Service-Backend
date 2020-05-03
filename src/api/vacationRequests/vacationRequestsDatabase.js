@@ -15,7 +15,7 @@ module.exports = {
         return VacationRequestModel.find({ ...query, deleted: false })
             .skip(options ? options.from : 0)
             .limit(options ? options.limit : '')
-            .populate('userId', 'username email')
+            .populate('userId', 'username email photoPath')
             .lean()
             .exec();
     },
@@ -29,8 +29,8 @@ module.exports = {
         if (options && options.employee && options.employee.length) {
             query.userId = options.employee
         }
-
-        return VacationRequestModel.count({ ...query, delete: false });
+        return VacationRequestModel.count({ ...query, deleted: false }).skip(options ? options.from : 0)
+            .limit(options ? options.limit : '')
     },
     getById: id => VacationRequestModel.findById(id).populate('userId', 'username email').lean().exec(),
     create: newVacationRequest => VacationRequestModel.create(newVacationRequest),
