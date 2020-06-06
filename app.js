@@ -61,7 +61,6 @@ mongoose.connect(mongo.URL, { useNewUrlParser: true })
         app.use('/users', require('./src/api/users/users'));
         app.use('/statistics', require('./src/api/statistics/statistics'));
         app.use('/settings', require('./src/api/settings/settings'));
-        app.use('/monitors', require('./src/api/monitors/monitors'));
         app.use('/vacations', require('./src/api/vacationRequests/vacationRequests'));
 
         app.use(notFound);
